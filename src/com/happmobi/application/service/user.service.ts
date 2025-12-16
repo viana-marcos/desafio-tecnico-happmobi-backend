@@ -2,11 +2,13 @@ import { Injectable, OnModuleInit, UnauthorizedException } from "@nestjs/common"
 import { UserRepository } from "../../infrastructure/repositories/user.repository";
 import { User } from "../../infrastructure/database/schema/user.schema";
 import { hash } from 'bcrypt'
+import { CarService } from "./car.service";
+import { CarRepository } from "../../infrastructure/repositories/car.repository";
 
 @Injectable()
 export class UserService implements OnModuleInit {
 
-  constructor(private readonly userRepository: UserRepository) { }
+  constructor(private readonly userRepository: UserRepository, private readonly carRepository: CarRepository) { }
 
   auth(): Promise<User[]> {
     return this.userRepository.getAll();
@@ -21,6 +23,11 @@ export class UserService implements OnModuleInit {
   }
 
   async delete(userId) {
+    const user = await this.userRepository.findById(userId) as any;
+    if(user.rentedCar){
+      await this.carRepository.update(user.rentedCar, {isAllocated: false} as any)
+    }   
+      
     return this.userRepository.deleteOne(userId);
   }
 
