@@ -2,8 +2,8 @@
 
 ## Description
 
-Para testar essa aplicação instale a versão v22.21.1 do nodejs e  siga os passos abaixo
-A aplica já cria na inicialização o usuário admin@gmail.com com a senha 123
+Para testar essa aplicação instale a versão v22.21.1 do nodejs e  siga os passos abaixo para execução.
+A aplica já cria na inicialização o usuário admin@gmail.com com a senha 123.
 
 ## Project setup
 
